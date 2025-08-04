@@ -25,7 +25,7 @@ public class ApiStockB3Service implements IApiStockB3Service {
     private String urlApiBase;
 
     // 33 - Como vai publicar os dados no kafka
-    public void atualizarValorAcao(String codigoAcao) {
+    public void updateValueStock(String codeStock) {
         // 34 - Consulta da api - Via criação de uma instância Rest Tempalete
         RestTemplate restTemplate = new RestTemplate();
 
@@ -33,7 +33,7 @@ public class ApiStockB3Service implements IApiStockB3Service {
         Gson gson = new Gson();
 
         // 35 - Fazer o get na nossa API B3 - recebendo uma String Json
-        String json = restTemplate.getForObject(criarUrlConsultaAcao(codigoAcao), String.class);
+        String json = restTemplate.getForObject(createQueryUrlStock(codeStock), String.class);
 
         // 37 - Conversão - Observação, a AcaoFavorita é uma classe modelo, não pode ser manipulada, pois tem como foco o banco de dados. Criar DTO para receber os dados externos no lugar
         ActionDTO actionDTO = gson.fromJson(json, ActionDTO.class);
@@ -43,7 +43,8 @@ public class ApiStockB3Service implements IApiStockB3Service {
     }
 
     // 41 - Criação do métod que captura a url
-    private String criarUrlConsultaAcao(String codigoAcao) {
-        return urlApiBase + "/acoes/" + codigoAcao;
+    private String createQueryUrlStock(String codeStock) {
+        return urlApiBase + "/acoes/" + codeStock;
     }
 }
+

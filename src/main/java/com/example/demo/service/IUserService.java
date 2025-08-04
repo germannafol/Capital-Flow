@@ -5,8 +5,8 @@ import com.example.demo.model.UserModel;
 
 public interface IUserService {
 
-	UserDTO consultar(String login);
+	UserDTO consult(String login);
 	
-	UserModel consultarEntidade(String login);
+	UserModel consultEntity(String login);
 
 }

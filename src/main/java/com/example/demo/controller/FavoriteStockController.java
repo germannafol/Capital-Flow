@@ -18,16 +18,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class FavoriteStockController extends ControllerBase<FavoriteStockDTO> {
 
     @Autowired
-    private FavoriteStockService acaoFavoritaService;
+    private FavoriteStockService favoriteStockService;
 
     // 45 - Ação no app de salvar uma ação favorita pelo usuário
     @PostMapping("/favorita")
-    public ResponseEntity<FavoriteStockDTO> salvar(
+    public ResponseEntity<FavoriteStockDTO> save(
             @RequestBody
             @Validated
             FavoriteStockDTO favoriteStockDTO
     ) {
-        FavoriteStockDTO acaoFavoritaRetorno = acaoFavoritaService.salvar(favoriteStockDTO);
-        return responderSucessoComItem(acaoFavoritaRetorno);
+        FavoriteStockDTO favoriteStockReturn = favoriteStockService.save(favoriteStockDTO);
+        return responserSuccessWithItem(favoriteStockReturn);
     }
 }

@@ -8,11 +8,11 @@ import com.example.demo.model.UserModel;
 
 public interface IFavoriteStockService {
 
-	FavoriteStockModel salvar(FavoriteStockModel favoriteStockModel);
+	FavoriteStockModel save(FavoriteStockModel favoriteStockModel);
 
-	FavoriteStockDTO salvar(FavoriteStockDTO favoriteStockDTO);
+	FavoriteStockDTO save(FavoriteStockDTO favoriteStockDTO);
 
-	List<FavoriteStockModel> listar(UserModel userModel);
+	List<FavoriteStockModel> list(UserModel userModel);
 
-	List<FavoriteStockModel> listarSemDuplicidade();
+	List<FavoriteStockModel> listNoDuplicity();
 }

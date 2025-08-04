@@ -5,19 +5,19 @@ import java.util.List;
 
 // 49 - Criação do conversor do modelo
 public abstract class ConversorBase<E, D> {
-    public abstract D conveterEntidadeParaDTO(E entidade);
+    public abstract D convertEntityForDTO(E entidade);
 
-    public abstract E conveterDTOParaEntidade(D dto);
+    public abstract E convertDTOForEntity(D dto);
 
-    public List<D> conveterEntidadeParaDTO(List<E> entidades) {
+    public List<D> convertEntityForDTO(List<E> entidades) {
         List<D> dtos = new ArrayList<>();
-        entidades.stream().forEach(entidade -> dtos.add(conveterEntidadeParaDTO(entidade)));
+        entidades.stream().forEach(entidade -> dtos.add(convertEntityForDTO(entidade)));
         return dtos;
     }
 
-    public List<E> conveterDTOParaEntidade(List<D> dtos) {
+    public List<E> convertDTOForEntity(List<D> dtos) {
         List<E> entidades = new ArrayList<>();
-        dtos.stream().forEach(dto -> entidades.add(conveterDTOParaEntidade(dto)));
+        dtos.stream().forEach(dto -> entidades.add(convertDTOForEntity(dto)));
         return entidades;
     }
 }

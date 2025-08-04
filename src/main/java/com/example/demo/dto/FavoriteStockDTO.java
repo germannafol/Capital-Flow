@@ -11,6 +11,7 @@ import lombok.Data;
 
 @Builder
 @Data
+// 56 - Não incluir campos nulos na serialização JSON
 @JsonInclude(Include.NON_NULL)
 public class FavoriteStockDTO {
 

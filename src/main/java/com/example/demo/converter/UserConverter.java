@@ -4,9 +4,11 @@ import com.example.demo.dto.UserDTO;
 import com.example.demo.model.FavoriteStockModel;
 import com.example.demo.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 // 54 - Criação do UsuarioConversor
 public class UserConverter extends ConversorBase<UserModel, UserDTO> {
 
@@ -14,7 +16,7 @@ public class UserConverter extends ConversorBase<UserModel, UserDTO> {
     private FavoriteStockConverter favoriteStockConverter;
 
     @Override
-    public UserDTO conveterEntidadeParaDTO(UserModel entidade) {
+    public UserDTO convertEntityForDTO(UserModel entidade) {
         return UserDTO.builder()
                 .nome(entidade.getNome())
                 .login(entidade.getLogin())
@@ -24,7 +26,7 @@ public class UserConverter extends ConversorBase<UserModel, UserDTO> {
                 .build();
     }
 
-    public UserDTO conveterEntidadeParaDTO(UserModel userModel, List<FavoriteStockModel> acoes) {
+    public UserDTO convertEntityForDTO(UserModel userModel, List<FavoriteStockModel> acoes) {
         return UserDTO.builder()
                 .nome(userModel.getNome())
                 .login(userModel.getLogin())
@@ -35,7 +37,7 @@ public class UserConverter extends ConversorBase<UserModel, UserDTO> {
     }
 
     @Override
-    public UserModel conveterDTOParaEntidade(UserDTO dto) {
+    public UserModel convertDTOForEntity(UserDTO dto) {
         return null;
     }
 }

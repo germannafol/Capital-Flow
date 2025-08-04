@@ -25,12 +25,12 @@ public class FavoriteStockService implements IFavoriteStockService {
     private FavoriteStockConverter favoriteStockConverter;
 
     @Override
-    public FavoriteStockModel salvar(FavoriteStockModel favoriteStockModel) {
+    public FavoriteStockModel save(FavoriteStockModel favoriteStockModel) {
         return favoriteStockRepository.save(favoriteStockModel);
     }
 
     @Override
-    public List<FavoriteStockModel> listar(UserModel userModel) {
+    public List<FavoriteStockModel> list(UserModel userModel) {
         List<FavoriteStockModel> acoes = new ArrayList<>();
 
         if (userModel != null) {
@@ -44,20 +44,20 @@ public class FavoriteStockService implements IFavoriteStockService {
 
     // 28 - Criar mét odo para ser usado no Job
     @Override
-    public List<FavoriteStockModel> listarSemDuplicidade() {
+    public List<FavoriteStockModel> listNoDuplicity() {
         // 31 - Para não ser feita uma query personalizada, usar o distinct do java funcional distict retorna uma lista pelo código e retorne a lista, da APM do stream,
         return favoriteStockRepository.findAll().stream().distinct().collect(Collectors.toList());
     }
 
     // 46 - Tem que consultar no banco de dados se ação favorita já está salva. Primeiro, precisa transformar ela em modelo
     @Override
-    public FavoriteStockDTO salvar(FavoriteStockDTO favoriteStockDTO) {
+    public FavoriteStockDTO save(FavoriteStockDTO favoriteStockDTO) {
         // 47 -  tem que consulta a ação, mas apenas sendo um modelo - DTO -> Modelo -> DTO - Pode usar modelMapper do spring
-        FavoriteStockModel favoriteStockModel = favoriteStockConverter.conveterDTOParaEntidade(favoriteStockDTO);
+        FavoriteStockModel favoriteStockModel = favoriteStockConverter.convertDTOForEntity(favoriteStockDTO);
         // 48 - Ação da consulta se ela existe nos bancos de dados, se ela não existe, salvar ela
         validar(favoriteStockModel);
         FavoriteStockModel acaoSalva = favoriteStockRepository.save(favoriteStockModel);
-        return favoriteStockConverter.conveterEntidadeParaDTO(acaoSalva);
+        return favoriteStockConverter.convertEntityForDTO(acaoSalva);
     }
 
     private void validar(FavoriteStockModel favoriteStockModel) {

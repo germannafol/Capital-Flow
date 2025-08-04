@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController extends ControllerBase<UserDTO> {
 
     @Autowired
-    private UserService usuarioService;
+    private UserService userService;
 
     @GetMapping("/{login}")
-    public ResponseEntity<UserDTO> consultar(@PathVariable String login) {
-        UserDTO usuario = usuarioService.consultar(login);
+    public ResponseEntity<UserDTO> consult(@PathVariable String login) {
+        UserDTO usuario = userService.consult(login);
         if (usuario == null) {
-            return responderItemNaoEncontrado();
+            return responseItemNotFound();
         }
-        return responderSucessoComItem(usuario);
+        return responserSuccessWithItem(usuario);
     }
 }

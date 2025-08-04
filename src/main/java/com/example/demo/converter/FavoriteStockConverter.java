@@ -4,24 +4,26 @@ import com.example.demo.dto.FavoriteStockDTO;
 import com.example.demo.model.FavoriteStockModel;
 import com.example.demo.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 // 50 - Conversores
 public class FavoriteStockConverter extends ConversorBase<FavoriteStockModel, FavoriteStockDTO> {
 
     @Autowired
-    private IUserService usuarioService;
+    private IUserService iUserService;
 
     @Override
-    public FavoriteStockDTO conveterEntidadeParaDTO(FavoriteStockModel entidade) {
+    public FavoriteStockDTO convertEntityForDTO(FavoriteStockModel entidade) {
         return FavoriteStockDTO.builder().codigo(entidade.getCodigo()).build();
     }
 
     @Override
-    public FavoriteStockModel conveterDTOParaEntidade(FavoriteStockDTO dto) {
+    public FavoriteStockModel convertDTOForEntity(FavoriteStockDTO dto) {
         return FavoriteStockModel
                 .builder()
                 .codigo(dto.getCodigo())
-                .userModel(usuarioService.consultarEntidade(dto.getLoginUsuario()))
+                .userModel(iUserService.consultEntity(dto.getLoginUsuario()))
                 .build();
     }
 }

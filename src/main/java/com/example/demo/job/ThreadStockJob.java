@@ -15,20 +15,20 @@ import java.util.List;
 // 15 - Runnable - interface para stacks
 // 16 - Obrigatório para esses implements o métod o run e destroy
 @Component
-public class AcaoThreadJob implements DisposableBean, Runnable {
+public class ThreadStockJob implements DisposableBean, Runnable {
 
     private Thread thread;
     private boolean running;
 
     // 27 - Injetar o service
     @Autowired
-    private FavoriteStockService acaoFavoritaService;
+    private FavoriteStockService favoriteStockService;
 
     @Autowired
     private ApiStockB3Service apiAcaoB3Service;
 
     // Constructor para injetar as dependências
-    AcaoThreadJob() {
+    ThreadStockJob() {
         // 17 - Usando o objeto criado, para instanciar uma nova Thread com o contexto vai ser da classe
         this.thread = new Thread(this);
 
@@ -49,10 +49,10 @@ public class AcaoThreadJob implements DisposableBean, Runnable {
                 Thread.sleep(10000);
                 // 22 - Executando a regra de negócio enquanto o running estiver true, a cada 10 seg
                 // 23 - Regra de Negócio: Apenas buscar as ações favoritas do usuário no nosso banco de dados
-                List<FavoriteStockModel> listaAcoes = acaoFavoritaService.listarSemDuplicidade();
+                List<FavoriteStockModel> listStock = favoriteStockService.listNoDuplicity();
 
-                for (FavoriteStockModel favoriteStockModel : listaAcoes) {
-                    apiAcaoB3Service.atualizarValorAcao(favoriteStockModel.getCodigo());
+                for (FavoriteStockModel favoriteStockModel : listStock) {
+                    apiAcaoB3Service.updateValueStock(favoriteStockModel.getCodigo());
                 }
             } catch (InterruptedException e) {
                 LogUtil.error(e);

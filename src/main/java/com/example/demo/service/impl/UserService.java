@@ -20,25 +20,25 @@ public class UserService implements IUserService {
     private UserRepository userRepository;
 
     @Autowired
-    private IFavoriteStockService acaoFavoritaService;
+    private IFavoriteStockService iFavoriteStockService;
 
     @Autowired
     private UserConverter userConverter;
 
     // 52 - Consultar pelo login que vai retornar um dto
     @Override
-    public UserDTO consultar(String login) {
-        UserModel userModel = consultarEntidade(login);
+    public UserDTO consult(String login) {
+        UserModel userModel = consultEntity(login);
         if (userModel != null) {
-            List<FavoriteStockModel> acoes = acaoFavoritaService.listar(userModel);
-            return userConverter.conveterEntidadeParaDTO(userModel, acoes);
+            List<FavoriteStockModel> stock = iFavoriteStockService.list(userModel);
+            return userConverter.convertEntityForDTO(userModel, stock);
         }
         return null;
     }
 
     // 53 - Consultar pelo login que retorna uma entidade
     @Override
-    public UserModel consultarEntidade(String login) {
+    public UserModel consultEntity(String login) {
         return userRepository.findByLogin(login);
     }
 }
